@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "G-Switcher",
+  "version": "1.0",
+  "description": "Allows a user to easily switch between Google accounts",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "G-Switcher@skyler.cc",
+      "strict_min_version": "42.0"
+    }
+  },
+
+  "icons": {
+    "48": "icon.png"
+  },
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "G-Switcher"
+  },
+  "background": {
+    "scripts": ["action.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.google.com/*"],
+      "js": ["swap.js"]
+    }
+  ],
+
+  "permissions": ["storage"],
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  }
+
+
+}
