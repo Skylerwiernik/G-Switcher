@@ -10,7 +10,11 @@ function swap(data) {
         return
     }
     const url = window.location.toString()
-    const newURL = url.replace(/\/u\/./, "/u/" + currentNumber)
+    const newURL = url.replace(
+        /\/u\/./, "/u/" + currentNumber
+    ).replace(
+        /authuser=./, "authuser=" + currentNumber
+    )
     if (url === newURL) {
         return
     }
