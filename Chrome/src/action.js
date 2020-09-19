@@ -1,68 +1,64 @@
 function iconClicked() {
-
-
-
-    browser.storage.sync.get({
+    chrome.storage.sync.get({
         "highestAccountIndex": 1,
         "currentSelection": 0
-    }).then(executeAction)
-}
+    }, function(data) {
+        var currentSelection = data["currentSelection"]
+        const highestAccountIndex = data["highestAccountIndex"]
 
-function executeAction(data){
-    var currentSelection = data["currentSelection"]
-    const highestAccountIndex = data["highestAccountIndex"]
-
-    if (currentSelection < highestAccountIndex) {
-        currentSelection++
-        browser.storage.sync.set({
-            currentSelection: currentSelection
-        });
-        if (currentSelection === 0) {
+        if (currentSelection < highestAccountIndex) {
+            currentSelection++
+            chrome.storage.sync.set({
+                currentSelection: currentSelection
+            });
+            if (currentSelection === 0) {
+                toggleEnabled()
+            }
+            updateIcon(currentSelection)
+        }
+        else if (currentSelection === highestAccountIndex) {
+            chrome.storage.sync.set({
+                currentSelection: -1
+            });
             toggleEnabled()
         }
-        updateIcon(currentSelection)
-    }
-    else if (currentSelection === highestAccountIndex) {
-        browser.storage.sync.set({
-            currentSelection: -1
-        });
-        toggleEnabled()
-    }
+    })
 }
 
+
 function updateIcon(num) {
-    browser.browserAction.setBadgeText({
+    chrome.browserAction.setBadgeText({
         "text": num.toString()
     })
-    browser.browserAction.setBadgeBackgroundColor({
+    chrome.browserAction.setBadgeBackgroundColor({
         color: "#042a63"
     });
 }
 
 function toggleEnabled() {
-    const isEnabled = browser.storage.sync.get({
+    const isEnabled = chrome.storage.sync.get({
         "isEnabled": true
-    }).then(completeToggle)
+    }, function(data) {
+        const isEnabled = data["isEnabled"]
+
+        chrome.storage.sync.set({
+            isEnabled: !isEnabled
+        });
+        if (isEnabled) {
+            chrome.browserAction.setIcon({
+                path: "deactivated-icon.png"
+            });
+            updateIcon("")
+        }
+        else {
+
+            chrome.browserAction.setIcon({
+                path: "icon.png"
+            });
+        }
+    })
 
 }
-function completeToggle(data){
-    const isEnabled = data["isEnabled"]
 
-    browser.storage.sync.set({
-        isEnabled: !isEnabled
-    });
-    if (isEnabled) {
-        browser.browserAction.setIcon({
-            path: "deactivated-icon.png"
-        });
-        updateIcon("")
-    }
-    else {
 
-        browser.browserAction.setIcon({
-            path: "icon.png"
-        });
-    }
-}
-
-browser.browserAction.onClicked.addListener(iconClicked)
+chrome.browserAction.onClicked.addListener(iconClicked)

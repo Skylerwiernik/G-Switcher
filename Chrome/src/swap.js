@@ -1,10 +1,7 @@
 
-browser.storage.sync.get({
+chrome.storage.sync.get({
     "currentSelection": 0
-}).then(swap)
-
-
-function swap(data) {
+}, function(data) {
     const currentNumber = data["currentSelection"]
     if (currentNumber === -1) {
         return
@@ -15,5 +12,5 @@ function swap(data) {
         return
     }
     window.location = newURL
-}
+})
 

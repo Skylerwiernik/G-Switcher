@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to G-Switcher</title>
+</head>
+<body>
+    <img src="arrow.jpg" height="100px" class="arrow"/>
+    <div class="content">
+        <h1>Welcome to G-Switcher!</h1>
+        <p>G-Switcher needs to be pined to your task bar in order to function.</p>
+        <p>1. Click the puzzle piece in the top right corner of your browser</p>
+        <p>2. Click the "pin" icon next to the G-Switcher icon</p>
+        <img src="pinImage.png" class="pinImage"/>
+        <p style="padding-bottom: 20px">3. Click on the icon you just added in order to finish setup!</p>
+        <script src="action.js"></script>
+        <script src="install.js"></script>
+    </div>
+
+</body>
+<style>
+    body {
+        margin: 25vh 25vw 0;
+    }
+    h1 {
+        font-family: "Apple Braille";
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    .pinImage {
+        padding: 10px;
+        width: 30vw;
+    }
+    .content {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: aquamarine;
+        text-align: center;
+        /*padding-left: 25vw;*/
+    }
+    .arrow {
+        z-index: 2;
+        position: fixed;
+        top: 10px;
+        right: 70px;
+    }
+</style>
+</html>

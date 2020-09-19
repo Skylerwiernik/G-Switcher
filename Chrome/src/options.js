@@ -1,33 +1,40 @@
 function save(){
-    const numberOfAccounts = document.getElementById("numberOfAccounts").value
-    browser.storage.sync.set({
-        highestAccountIndex: numberOfAccounts - 1,
-        currentSelection: 0
-    }).then(changeIconDisplay)
+    chrome.storage.sync.get({
+        "currentSelection": 0
+    }, function (data) {
+        if(data["currentSelection"] === -1) {
+            iconClicked()
+        }
+        const numberOfAccounts = document.getElementById("numberOfAccounts").value
+        chrome.storage.sync.set({
+            highestAccountIndex: numberOfAccounts - 1,
+            currentSelection: 0
+        }, changeIconDisplay())
+    })
+
+
 }
 
 function changeIconDisplay(e) {
-    browser.browserAction.setBadgeText({
+    chrome.browserAction.setBadgeText({
         "text": "0"
     })
+    chrome.browserAction.setIcon({
+        path: "icon.png"
+    });
 }
 
-function displaySuccess() {
-    document.getElementById("successIndicator").hidden = false
-}
-
-function fillDefault(data) {
-    document.getElementById("numberOfAccounts").value = data["highestAccountIndex"] + 1
-}
 
 window.onload = function(e){
-    browser.storage.sync.get({
+    chrome.storage.sync.get({
         "highestAccountIndex": 1,
-    }).then(fillDefault)
+    }, function(data) {
+        document.getElementById("numberOfAccounts").value = data["highestAccountIndex"] + 1
+    })
 }
 
 document.querySelector("form").addEventListener("submit", save);
 
 if (window.location.toString().includes("?")) {
-    displaySuccess()
+    window.close()
 }
