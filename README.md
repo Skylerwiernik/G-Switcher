@@ -11,7 +11,7 @@ G-Switcher allows us to change our default Google account with only 1 click. Sim
 
 **Firefox**: https://addons.mozilla.org/en-US/firefox/addon/g-switcher/
 
-**Chrome**: TODO
+**Chrome**: https://chrome.google.com/webstore/detail/g-switcher/fkpnpedmgcpjnmglbjckfjhnodoacnan
 
 ## Help
 Feel free to open an issue, or email me at [skyler@skyler.cc](mailto:skyler@skyler.cc)
